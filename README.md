@@ -104,13 +104,18 @@ const content = await readFile('./file.txt', 'utf8');
 
 ## Types
 
-| Type                | Description                                            |
-| ------------------- | ------------------------------------------------------ |
-| `TimeoutPromise<T>` | Callable promise with `.abort()` and `.id` properties  |
-| `Fn<Args, R>`       | Generic function type                                  |
-| `Callback`          | Node-style callback — `(err, result?)` or `(err)`      |
-| `CbParams`          | Tuple of `[...args, Callback]`                         |
-| `ResultFrom<T>`     | Infers the promise-returning signature from `CbParams` |
+| Type                    | Description                                                  |
+| ----------------------- | ------------------------------------------------------------ |
+| `TimeoutPromise<T>`     | Callable promise with `.abort()` and `.id` properties        |
+| `TypeFromTimeout<T>`    | Extracts the resolved type from a `TimeoutPromise<T>`        |
+| `TypeFromTimeouts<T>`   | Extracts the union of resolved types from `TimeoutPromise[]` |
+| `Fn<Args, R>`           | Generic function type                                        |
+| `FnBasic<Main, Tr>`     | Intersection of a function type and an object type           |
+| `Callback`              | Node-style callback — `(err, result?)` or `(err)`            |
+| `CallBackError`         | Callback with error only — `(err: any) => void`              |
+| `CallBackResult<T>`     | Callback with error and result — `(err: any, result: T)`     |
+| `CbParams`              | Tuple of `[...args, Callback]`                               |
+| `ResultFrom<T>`         | Infers the promise-returning signature from `CbParams`       |
 
 <br/>
 

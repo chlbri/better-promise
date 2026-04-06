@@ -1,6 +1,6 @@
 {
   "name": "@bemedev/better-promise",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Promise utilities with timeout control, race helpers, and strong typing — withTimeout, racePromises, anyPromises, asyncfy, typedPromisify.",
   "author": {
     "email": "bri_lvi@icloud.com",

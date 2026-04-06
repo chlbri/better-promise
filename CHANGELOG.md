@@ -3,6 +3,21 @@
 <details>
 <summary>
 
+## **[0.1.1] - 06/04/2026** => _23:04_
+
+</summary>
+
+- Add export public des types utilitaires (`Fn`, `FnBasic`, `TimeoutPromise`, `TypeFromTimeout`, `TypeFromTimeouts`, `CallBackError`, `CallBackResult`, `Callback`, `CbParams`, `ResultFrom`) depuis l'entrée principale du package
+- Fix suppression de la dépendance de développement locale accidentelle `this-gen-1`
+- <u>Test coverage **_100%_**</u>
+
+</details>
+
+<br/>
+
+<details>
+<summary>
+
 ## **[0.1.0] - 06/04/2026** => _15:00_
 
 </summary>
