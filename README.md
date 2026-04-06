@@ -14,7 +14,9 @@ pnpm add @bemedev/better-promise
 
 ### `withTimeout(promise, id, ...timeouts)`
 
-Wraps a promise with one or more timeout deadlines. Rejects with a message like `"Timed out after 500 ms."` if the promise does not settle in time. Automatically clears all timers on settlement.
+Wraps a promise with one or more timeout deadlines. Rejects with a message
+like `"Timed out after 500 ms."` if the promise does not settle in time.
+Automatically clears all timers on settlement.
 
 ```ts
 import { withTimeout } from '@bemedev/better-promise';
@@ -33,13 +35,15 @@ wrapped.abort();
 
 #### `withTimeout.safe(promise, id, ...timeouts)`
 
-Same as `withTimeout` but resolves to `undefined` instead of rejecting on timeout or abort.
+Same as `withTimeout` but resolves to `undefined` instead of rejecting on
+timeout or abort.
 
 ---
 
 ### `racePromises(id, ...promises)`
 
-Races multiple `TimeoutPromise`s using `Promise.race`. The first to settle wins; all others are aborted.
+Races multiple `TimeoutPromise`s using `Promise.race`. The first to settle
+wins; all others are aborted.
 
 ```ts
 import { racePromises, withTimeout } from '@bemedev/better-promise';
@@ -55,7 +59,8 @@ const result = await winner();
 
 ### `anyPromises(id, ...promises)`
 
-Races multiple `TimeoutPromise`s using `Promise.any`. Resolves with the first fulfillment; rejects only when all have rejected.
+Races multiple `TimeoutPromise`s using `Promise.any`. Resolves with the
+first fulfillment; rejects only when all have rejected.
 
 ```ts
 import { anyPromises, withTimeout } from '@bemedev/better-promise';
@@ -84,7 +89,8 @@ const result = await asyncAdd(1, 2); // 3
 
 ### `typedPromisify(fn)`
 
-Converts a Node.js-style callback function `(…args, cb)` into a promise-returning function, fully typed.
+Converts a Node.js-style callback function `(…args, cb)` into a
+promise-returning function, fully typed.
 
 ```ts
 import { typedPromisify } from '@bemedev/better-promise';
@@ -100,7 +106,7 @@ const content = await readFile('./file.txt', 'utf8');
 
 | Type                | Description                                            |
 | ------------------- | ------------------------------------------------------ |
-| `TimeoutPromise<T>` | Callable promise with `.abort()` and `.id` properties |
+| `TimeoutPromise<T>` | Callable promise with `.abort()` and `.id` properties  |
 | `Fn<Args, R>`       | Generic function type                                  |
 | `Callback`          | Node-style callback — `(err, result?)` or `(err)`      |
 | `CbParams`          | Tuple of `[...args, Callback]`                         |
