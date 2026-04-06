@@ -1,6 +1,110 @@
-# Beatifull lib
+# @bemedev/better-promise
 
-A beautifull description
+Promise utilities with timeout control, race helpers, and strong typing.
+
+<br/>
+
+## Installation
+
+```sh
+pnpm add @bemedev/better-promise
+```
+
+## API
+
+### `withTimeout(promise, id, ...timeouts)`
+
+Wraps a promise with one or more timeout deadlines. Rejects with a message like `"Timed out after 500 ms."` if the promise does not settle in time. Automatically clears all timers on settlement.
+
+```ts
+import { withTimeout } from '@bemedev/better-promise';
+
+const wrapped = withTimeout(
+  () => fetch('/api/data').then(r => r.json()),
+  'fetch-data',
+  3000, // reject after 3 s
+);
+
+const result = await wrapped();
+
+// Cancel at any time
+wrapped.abort();
+```
+
+#### `withTimeout.safe(promise, id, ...timeouts)`
+
+Same as `withTimeout` but resolves to `undefined` instead of rejecting on timeout or abort.
+
+---
+
+### `racePromises(id, ...promises)`
+
+Races multiple `TimeoutPromise`s using `Promise.race`. The first to settle wins; all others are aborted.
+
+```ts
+import { racePromises, withTimeout } from '@bemedev/better-promise';
+
+const a = withTimeout(() => fetchA(), 'a', 1000);
+const b = withTimeout(() => fetchB(), 'b', 1000);
+
+const winner = racePromises('race-ab', a, b);
+const result = await winner();
+```
+
+---
+
+### `anyPromises(id, ...promises)`
+
+Races multiple `TimeoutPromise`s using `Promise.any`. Resolves with the first fulfillment; rejects only when all have rejected.
+
+```ts
+import { anyPromises, withTimeout } from '@bemedev/better-promise';
+
+const a = withTimeout(() => fetchA(), 'a', 1000);
+const b = withTimeout(() => fetchB(), 'b', 1000);
+
+const first = anyPromises('any-ab', a, b);
+const result = await first();
+```
+
+---
+
+### `asyncfy(fn)`
+
+Wraps a synchronous function so it returns a `Promise`.
+
+```ts
+import { asyncfy } from '@bemedev/better-promise';
+
+const asyncAdd = asyncfy((a: number, b: number) => a + b);
+const result = await asyncAdd(1, 2); // 3
+```
+
+---
+
+### `typedPromisify(fn)`
+
+Converts a Node.js-style callback function `(…args, cb)` into a promise-returning function, fully typed.
+
+```ts
+import { typedPromisify } from '@bemedev/better-promise';
+import fs from 'node:fs';
+
+const readFile = typedPromisify(fs.readFile);
+const content = await readFile('./file.txt', 'utf8');
+```
+
+---
+
+## Types
+
+| Type                | Description                                            |
+| ------------------- | ------------------------------------------------------ |
+| `TimeoutPromise<T>` | Callable promise with `.abort()` and `.id` properties |
+| `Fn<Args, R>`       | Generic function type                                  |
+| `Callback`          | Node-style callback — `(err, result?)` or `(err)`      |
+| `CbParams`          | Tuple of `[...args, Callback]`                         |
+| `ResultFrom<T>`     | Infers the promise-returning signature from `CbParams` |
 
 <br/>
 
@@ -8,9 +112,9 @@ A beautifull description
 
 MIT
 
-## CHANGE_LOG
+## CHANGELOG
 
-Read [CHANGE_LOG.md](CHANGE_LOG.md) for more details about the changes.
+Read [CHANGELOG.md](CHANGELOG.md) for more details about the changes.
 
 <br/>
 

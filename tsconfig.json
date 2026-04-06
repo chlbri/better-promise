@@ -8,6 +8,7 @@
     "sourceMap": true,
     "outDir": "./lib",
     "resolveJsonModule": true,
+    "module": "ESNext",
     "strict": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
@@ -21,6 +22,7 @@
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "noEmit": true,
-    "declarationMap": true
+    "declarationMap": true,
+    "paths": {}
   }
 }
